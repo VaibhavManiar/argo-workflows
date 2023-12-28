@@ -8,13 +8,13 @@ metadata:
     workflows.argoproj.io/description: |
       This is a simple hello world example.
 spec:
-  entrypoint: whalesay_with_parameter
+  entrypoint: whalesay-with-parameter
   arguments:
     parameters:
       - name: message
         value: hello world
   templates:
-    - name: whalesay_with_parameter
+    - name: whalesay-with-parameter
       inputs:
         parameters:
           - name: message
