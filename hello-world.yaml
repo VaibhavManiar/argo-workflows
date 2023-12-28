@@ -8,17 +8,17 @@ metadata:
     workflows.argoproj.io/description: |
       This is a simple hello world example.
 spec:
-  entrypoint: whalesay
+  entrypoint: whalesay_with_parameter
   arguments:
     parameters:
       - name: message
         value: hello world
   templates:
-    - name: whalesay
+    - name: whalesay_with_parameter
       inputs:
         parameters:
           - name: message
       container:
         image: docker/whalesay:latest
-        command: [cowsay]
-        args: ["{{inputs.parameters.message}}"]
+        command: [ cowsay ]
+        args: [ "{{inputs.parameters.message}}" ]
