@@ -14,33 +14,33 @@ spec:
       - name: message
         value: hello world
   templates:
-      - name: A
-      - steps:
-          - name: A1
-            template: B
-            arguments:
-                parameters:
-                - name: message
-                  value: "Hello A1"
-          - name: A2
-            dependencies: [A1]
-            template: B
-            arguments:
-                parameters:
-                - name: message
-                  value: "Hello A2"
-          - name: A3
-            dependencies: [A1]
-            template: B
-            arguments:
-                parameters:
-                - name: message
-                  value: "Hello A3"
-      - name: B
-        inputs:
+    - name: A
+    - steps:
+        - name: A1
+          template: B
+          arguments:
             parameters:
-            - name: message
-        container:
-            image: docker/whalesay:latest
-            command: [ cowsay ]
-            args: [ "{{inputs.parameters.message}}" ]`
+              - name: message
+                value: "Hello A1"
+        - name: A2
+          dependencies: [ A1 ]
+          template: B
+          arguments:
+            parameters:
+              - name: message
+                value: "Hello A2"
+        - name: A3
+          dependencies: [ A1 ]
+          template: B
+          arguments:
+            parameters:
+              - name: message
+                value: "Hello A3"
+    - name: B
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: docker/whalesay:latest
+        command: [ cowsay ]
+        args: [ "{{inputs.parameters.message}}" ]
