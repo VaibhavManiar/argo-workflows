@@ -22,15 +22,13 @@ spec:
             parameters:
               - name: message
                 value: "Hello A1"
-        - name: A2
-          dependencies: [ A1 ]
+      - - name: A2
           template: B
           arguments:
             parameters:
               - name: message
                 value: "Hello A2"
         - name: A3
-          dependencies: [ A1 ]
           template: B
           arguments:
             parameters:
