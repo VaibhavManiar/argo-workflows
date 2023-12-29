@@ -1,4 +1,4 @@
-# Please check doc: https://argoproj.github.io/argo-workflows/enhanced-depends-logic/
+# Please check Enhanced Depends Logic Doc: https://argoproj.github.io/argo-workflows/enhanced-depends-logic/
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
@@ -24,6 +24,7 @@ spec:
         command: [ echo, "{{inputs.parameters.message}}" ]
     - name: argo-dag
       dag:
+        failFast: false # failFast default is true, means even if any task fails it will terminate the workflow. If set to false, the workflow will continue to run other tasks even if a task fails.
         tasks:
           - name: argo-dag-1
             template: argo-dag-echo
