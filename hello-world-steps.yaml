@@ -16,7 +16,7 @@ spec:
   templates:
     - name: A
     - steps:
-        - name: A1
+      - - name: A1
           template: B
           arguments:
             parameters:
