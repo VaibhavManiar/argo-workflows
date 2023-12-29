@@ -8,33 +8,33 @@ metadata:
     workflows.argoproj.io/description: |
       This is a simple hello world example.
 spec:
-  entrypoint: A
+  entrypoint: template-a
   arguments:
     parameters:
       - name: message
         value: hello world
   templates:
-  - name: A
+  - name: template-a
     steps:
-    - - name: A1
-        template: B
+    - - name: a1
+        template: template-b
         arguments:
           parameters:
             - name: message
               value: "Hello A1"
-    - - name: A2
-        template: B
+    - - name: a2
+        template: template-b
         arguments:
           parameters:
             - name: message
               value: "Hello A2"
-      - name: A3
-        template: B
+      - name: a3
+        template: template-b
         arguments:
           parameters:
             - name: message
               value: "Hello A3"
-  - name: B
+  - name: template-b
     inputs:
       parameters:
         - name: message
