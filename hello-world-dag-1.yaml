@@ -45,8 +45,15 @@ spec:
                   value: "Hello Argo DAG 3"
           - name: argo-dag-4
             template: argo-dag-echo
-            depends: "argo-dag-2 && argo-dag-2"
+            depends: "argo-dag-1 && argo-dag-2"
             arguments:
               parameters:
                 - name: message
                   value: "Hello Argo DAG 4"
+          - name: argo-dag-5
+            template: argo-dag-echo
+            depends: "argo-dag-3"
+            arguments:
+              parameters:
+                - name: message
+                  value: "Hello Argo DAG 5"
