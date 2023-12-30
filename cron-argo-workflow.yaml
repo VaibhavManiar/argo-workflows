@@ -1,4 +1,5 @@
 # Please check Cron Workflows Logic Doc: https://argoproj.github.io/argo-workflows/cron-workflows/#cronworkflow-spec
+# Command to create the resource kubectl create -n argo -f https://raw.githubusercontent.com/VaibhavManiar/argo-workflows/main/cron-argo-workflow.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: CronWorkflow
 metadata:
