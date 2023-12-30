@@ -14,53 +14,54 @@ spec:
   startingDeadlineSeconds: 0 # If set, startingDeadlineSeconds indicates that the cron job will not start if the current time is later than this amount of time after the scheduled time. The CronWorkflow will not start if it misses its first scheduled time and this would cause it to start later than this deadline.
   successfulJobsHistoryLimit: 3 # If you want to keep successful jobs, set this to a non-zero value
   failedJobsHistoryLimit: 1 # If you want to keep failed jobs, set this to a non-zero value
-  entrypoint: argo-dag
-  arguments:
-    parameters:
-      - name: message
-        value: Wellcome to Argo Workflow with DAG
-  templates:
-    - name: argo-dag-echo
-      inputs:
-        parameters:
-          - name: message
-      container:
-        image: alpine:latest
-        command: [ echo, "{{inputs.parameters.message}}" ]
-    - name: argo-dag
-      dag:
-        failFast: false # failFast default is true, means even if any task fails it will terminate the workflow. If set to false, the workflow will continue to run other tasks even if a task fails.
-        tasks:
-          - name: argo-dag-1
-            template: argo-dag-echo
-            arguments:
-              parameters:
-                - name: message
-                  value: "Hello Argo DAG 1"
-          - name: argo-dag-2
-            template: argo-dag-echo
-            arguments:
-              parameters:
-                - name: message
-                  value: "Hello Argo DAG 2"
-          - name: argo-dag-3
-            template: argo-dag-echo
-            depends: "argo-dag-1"
-            arguments:
-              parameters:
-                - name: message
-                  value: "Hello Argo DAG 3"
-          - name: argo-dag-4
-            template: argo-dag-echo
-            depends: "argo-dag-1 && argo-dag-2"
-            arguments:
-              parameters:
-                - name: message
-                  value: "Hello Argo DAG 4"
-          - name: argo-dag-5
-            template: argo-dag-echo
-            depends: "argo-dag-3"
-            arguments:
-              parameters:
-                - name: message
-                  value: "Hello Argo DAG 5"
+  workflowSpec:
+    entrypoint: argo-dag
+    arguments:
+      parameters:
+        - name: message
+          value: Wellcome to Argo Workflow with DAG
+    templates:
+      - name: argo-dag-echo
+        inputs:
+          parameters:
+            - name: message
+        container:
+          image: alpine:latest
+          command: [ echo, "{{inputs.parameters.message}}" ]
+      - name: argo-dag
+        dag:
+          failFast: false # failFast default is true, means even if any task fails it will terminate the workflow. If set to false, the workflow will continue to run other tasks even if a task fails.
+          tasks:
+            - name: argo-dag-1
+              template: argo-dag-echo
+              arguments:
+                parameters:
+                  - name: message
+                    value: "Hello Argo DAG 1"
+            - name: argo-dag-2
+              template: argo-dag-echo
+              arguments:
+                parameters:
+                  - name: message
+                    value: "Hello Argo DAG 2"
+            - name: argo-dag-3
+              template: argo-dag-echo
+              depends: "argo-dag-1"
+              arguments:
+                parameters:
+                  - name: message
+                    value: "Hello Argo DAG 3"
+            - name: argo-dag-4
+              template: argo-dag-echo
+              depends: "argo-dag-1 && argo-dag-2"
+              arguments:
+                parameters:
+                  - name: message
+                    value: "Hello Argo DAG 4"
+            - name: argo-dag-5
+              template: argo-dag-echo
+              depends: "argo-dag-3"
+              arguments:
+                parameters:
+                  - name: message
+                    value: "Hello Argo DAG 5"
