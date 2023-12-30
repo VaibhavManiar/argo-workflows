@@ -3,7 +3,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: CronWorkflow
 metadata:
-  generateName: hello-world-
+  #generateName: hello-world-
+  name: hello-world-
   labels:
     workflows.argoproj.io/archive-strategy: "false"
   annotations:
@@ -15,6 +16,8 @@ spec:
   startingDeadlineSeconds: 0 # If set, startingDeadlineSeconds indicates that the cron job will not start if the current time is later than this amount of time after the scheduled time. The CronWorkflow will not start if it misses its first scheduled time and this would cause it to start later than this deadline.
   successfulJobsHistoryLimit: 3 # If you want to keep successful jobs, set this to a non-zero value
   failedJobsHistoryLimit: 1 # If you want to keep failed jobs, set this to a non-zero value
+  runPolicy:
+    maxSuccess: 1  # Terminate the workflow after 1 successful run
   workflowSpec:
     entrypoint: argo-dag
     arguments:
